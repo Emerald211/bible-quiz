@@ -1,0 +1,13 @@
+.main-text{
+  background: #CF54B4;
+  background: linear-gradient(to right, #CF54B4 50%, #501ECF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  
+  
+}
+.main-container{
+  background: rgb(223,8,255);
+  background: linear-gradient(309deg, rgba(223,8,255,1) 35%, rgba(53,24,170,1) 100%);
+}
+
