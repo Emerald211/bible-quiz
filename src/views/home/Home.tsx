@@ -4,14 +4,18 @@ import { useForm } from 'react-hook-form';
 import { useContext } from 'react';
 import { QuizContext } from '../../context/Context';
 
+type FormValues = {
+	tribe: string;
+  };
+
 const Home = () => {
 	const navigate = useNavigate();
 
 	const { getRandomVerse, setUser } = useContext(QuizContext);
 
-	const { register, handleSubmit } = useForm();
+	const { register, handleSubmit } = useForm<FormValues>();
 
-	const onSubmitForm = (data: { tribe: string }) => {
+	const onSubmitForm = (data: FormValues) => {
 		const { tribe } = data;
 
 		console.log(tribe);
@@ -26,10 +30,10 @@ const Home = () => {
 	return (
 		<div className=' bg-main  flex flex-col justify-center items-center font-serrat  bg-cover w-screen h-screen'>
 			<img src={Logo} alt='' />
-			<h1 className=' main-text font-serrat text-5xl font-bold'>
+			<h1 className=' main-text font-serrat text-2xl md:text-5xl font-bold'>
 				WatchtowerPedia
 			</h1>
-			<h3 className=' mt-3 text-lg italic font-bold text-white'>
+			<h3 className=' mt-3 text-sm tmd:ext-lg italic font-bold text-white'>
 				Lets dive into the scripture together
 			</h3>
 

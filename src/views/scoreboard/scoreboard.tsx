@@ -23,7 +23,7 @@ export const Scoreboard = () => {
 		
 	}
 	return (
-		<div className=' score-card z-40 gap-4 flex flex-col justify-center justify-center items-center w-screen h-screen absolute  font-serrat text-white'>
+		<div className=' score-card z-40 gap-4 flex flex-col  justify-center items-center w-screen h-screen absolute  font-serrat text-white'>
 			{questionChecked < 4 ? (
 				<div className=' flex flex-col items-center justify-center'>
 					<img src={Evict} />

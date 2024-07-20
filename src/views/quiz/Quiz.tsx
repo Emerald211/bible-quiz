@@ -9,7 +9,15 @@ import { Scoreboard } from '../scoreboard/scoreboard';
 import { Bounce, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const Quiz = () => {
+
+type Option = {
+	id: number;
+	bookname: string;
+	chapter: string;
+	verse: string;
+  }
+
+const Quiz: React.FC = () => {
 	const {
 		verse,
 		minuteDisplay,
@@ -26,10 +34,10 @@ const Quiz = () => {
 		showResult,
 		setShowResult,
 	} = useContext(QuizContext);
-	const [selectedOption, setSelectedOption] = useState(null);
-	const [isCorrect, setIsCorrect] = useState(null);
+	const [selectedOption, setSelectedOption] = useState<number | null>(null);
+	const [isCorrect, setIsCorrect] = useState <boolean | null>(null);
 
-	const handleOptionClick = (id) => {
+	const handleOptionClick = (id: number) => {
 		setSelectedOption(id);
 		if (id === 1) {
 			if (questionChecked === 10) {
@@ -155,7 +163,7 @@ const Quiz = () => {
 					</div>
 
 					<div className='md:mt-14 mt-4 grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-12'>
-						{options.map((eachItem) => {
+						{options.map((eachItem: Option) => {
 							const isSelected = selectedOption === eachItem.id;
 							const bgColor = isSelected
 								? isCorrect

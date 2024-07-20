@@ -1,7 +1,37 @@
-import React, { useState, useEffect, useContext, createContext } from 'react';
+import { useState, createContext, Dispatch, SetStateAction } from 'react';
 import axios from 'axios';
 
-const QuizContext = createContext({
+type QuizContextType = {
+	verse: string;
+	minuteDisplay: string;
+	secondDisplay: string;
+	getRandomVerse: () => void;
+	loading: boolean;
+	result: any[]; // Update this to the actual type of result
+	options: never[]; // Update this to the actual type of options
+	user: string;
+	questionNo: number;
+	questionChecked: number;
+	totalScore: number;
+	attempt: number;
+	setUser: Dispatch<SetStateAction<string>>;
+	setQuestionNo: Dispatch<SetStateAction<number>>;
+	setTotalScore: Dispatch<SetStateAction<number>>;
+	setQuestionChecked: Dispatch<SetStateAction<number>>;
+	setAttempt: Dispatch<SetStateAction<number>>;
+	showResult: boolean;
+	setShowResult: Dispatch<SetStateAction<boolean>>;
+};
+
+type Option = {
+	id: string;
+	bookname: string;
+	chapter: number;
+	text: string;
+	verse: number
+}
+
+const QuizContext = createContext<QuizContextType>({
 	verse: '',
 	minuteDisplay: '',
 	secondDisplay: '',
@@ -10,23 +40,26 @@ const QuizContext = createContext({
 	result: [],
 	options: [],
 	user: '',
-
 	setQuestionNo: () => {},
 	setTotalScore: () => {},
-
 	questionNo: 1,
 	questionChecked: 1,
 	totalScore: 0,
 	attempt: 2,
+	setUser: () => {},
+	setQuestionChecked: () => {},
+	setAttempt: () => {},
+	showResult: false,
+	setShowResult: () => {},
 });
 
-const QuizProvider = ({ children }) => {
+const QuizProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 	const [verse, setVerse] = useState('');
 	const [minuteDisplay, setMinuteDisplay] = useState('00');
 	const [secondDisplay, setSecondDisplay] = useState('00');
 	const [timerInterval, setTimerInterval] = useState(0);
 	const [loading, setLoading] = useState(false);
-	const [result, setResult] = useState([]);
+	const [result, setResult] = useState<any[]>([]);
 	const [options, setOptions] = useState<never[]>([]);
 	const [user, setUser] = useState('');
 	const [questionChecked, setQuestionChecked] = useState(1);
@@ -127,7 +160,7 @@ const QuizProvider = ({ children }) => {
 
 				const randomId = 1;
 
-				const option = [
+				const option: Option[] = [
 					{ ...correctOption, id: randomId },
 					{
 						bookname: books[Math.floor(Math.random() * books.length)],
@@ -152,7 +185,7 @@ const QuizProvider = ({ children }) => {
 					},
 				];
 
-				const shuffleArray = (array) => {
+				const shuffleArray = (array: Option[]) => {
 					for (let i = array.length - 1; i > 0; i--) {
 						const j = Math.floor(Math.random() * (i + 1));
 						[array[i], array[j]] = [array[j], array[i]];
@@ -204,7 +237,7 @@ const QuizProvider = ({ children }) => {
 		setTimerInterval(intervalId);
 	};
 
-	const contextValue = {
+	const contextValue: QuizContextType = {
 		verse,
 		result,
 		minuteDisplay,
