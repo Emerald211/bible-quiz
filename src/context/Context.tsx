@@ -28,8 +28,8 @@ type Option = {
 	bookname: string;
 	chapter: number;
 	text: string;
-	verse: number
-}
+	verse: number;
+};
 
 const QuizContext = createContext<QuizContextType>({
 	verse: '',
@@ -53,7 +53,9 @@ const QuizContext = createContext<QuizContextType>({
 	setShowResult: () => {},
 });
 
-const QuizProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+const QuizProvider: React.FC<{ children: React.ReactNode }> = ({
+	children,
+}) => {
 	const [verse, setVerse] = useState('');
 	const [minuteDisplay, setMinuteDisplay] = useState('00');
 	const [secondDisplay, setSecondDisplay] = useState('00');

@@ -9,13 +9,12 @@ import { Scoreboard } from '../scoreboard/scoreboard';
 import { Bounce, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-
 type Option = {
 	id: number;
 	bookname: string;
 	chapter: string;
 	verse: string;
-  }
+};
 
 const Quiz: React.FC = () => {
 	const {
@@ -35,7 +34,7 @@ const Quiz: React.FC = () => {
 		setShowResult,
 	} = useContext(QuizContext);
 	const [selectedOption, setSelectedOption] = useState<number | null>(null);
-	const [isCorrect, setIsCorrect] = useState <boolean | null>(null);
+	const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
 
 	const handleOptionClick = (id: number) => {
 		setSelectedOption(id);
@@ -91,7 +90,7 @@ const Quiz: React.FC = () => {
 				transition: Bounce,
 			});
 
-			if (attempt === 0 ) {
+			if (attempt === 0) {
 				toast.error(`You have ${attempt} attempts`, {
 					position: 'top-right',
 					autoClose: 5000,
@@ -209,7 +208,7 @@ const Quiz: React.FC = () => {
 						{questionNo} out of 10 questions
 					</div>
 					<button
-						className=' main-container text-white px-12 py-3 rounded-2xl'
+						className=' main-container text-white px-11ad py-3 rounded-2xl'
 						onClick={nextQuestionHandler}>
 						Next Question
 					</button>
