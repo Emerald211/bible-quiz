@@ -91,6 +91,25 @@ const Quiz: React.FC = () => {
 				transition: Bounce,
 			});
 
+			if (attempt === 0 ) {
+				toast.error(`You have ${attempt} attempts`, {
+					position: 'top-right',
+					autoClose: 5000,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					progress: undefined,
+					theme: 'colored',
+					transition: Bounce,
+				});
+
+				setQuestionChecked(0);
+				let finalScore = questionChecked * 5;
+				setTotalScore(finalScore);
+				setShowResult(true);
+			}
+
 			if (attempt === 0 && questionChecked === 0) {
 				toast.error(`You have ${attempt} attempts`, {
 					position: 'top-right',
