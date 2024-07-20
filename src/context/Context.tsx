@@ -21,6 +21,8 @@ type QuizContextType = {
 	setAttempt: Dispatch<SetStateAction<number>>;
 	showResult: boolean;
 	setShowResult: Dispatch<SetStateAction<boolean>>;
+	showCall: boolean;
+	setShowCall: Dispatch<SetStateAction<boolean>>;
 };
 
 type Option = {
@@ -45,12 +47,14 @@ const QuizContext = createContext<QuizContextType>({
 	questionNo: 1,
 	questionChecked: 1,
 	totalScore: 0,
-	attempt: 2,
+	attempt: 3,
 	setUser: () => {},
 	setQuestionChecked: () => {},
 	setAttempt: () => {},
 	showResult: false,
-	setShowResult: () => {},
+	setShowResult: () => { },
+	showCall: false,
+	setShowCall: () => {}
 });
 
 const QuizProvider: React.FC<{ children: React.ReactNode }> = ({
@@ -67,8 +71,9 @@ const QuizProvider: React.FC<{ children: React.ReactNode }> = ({
 	const [questionChecked, setQuestionChecked] = useState(1);
 	const [questionNo, setQuestionNo] = useState(1);
 	const [totalScore, setTotalScore] = useState(0);
-	const [attempt, setAttempt] = useState(2);
+	const [attempt, setAttempt] = useState(3);
 	const [showResult, setShowResult] = useState(false);
+	const [showCall, setShowCall] = useState(false);
 
 	const getRandomVerse = () => {
 		setLoading(true);
@@ -259,6 +264,8 @@ const QuizProvider: React.FC<{ children: React.ReactNode }> = ({
 		setAttempt,
 		showResult,
 		setShowResult,
+		showCall,
+		setShowCall
 	};
 
 	return (

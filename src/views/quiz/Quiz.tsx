@@ -1,13 +1,13 @@
 import { useContext, useState } from 'react';
 import './quiz.css';
 import Call from '../../assets/images/Group 17.png';
-import Chance from '../../assets/images/Group 18.png';
-import Shield from '../../assets/images/Group 21.png';
+import UsedCall from '../../assets/images/Group 22676.png'
 import Logo from '../../assets/images/Approved logo watchtower black 2.png';
 import { QuizContext } from '../../context/Context';
 import { Scoreboard } from '../scoreboard/scoreboard';
 import { Bounce, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import AlumusModal from '../modal/AlumusModal';
 
 type Option = {
 	id: number;
@@ -32,14 +32,18 @@ const Quiz: React.FC = () => {
 		setTotalScore,
 		showResult,
 		setShowResult,
+		showCall,
+		setShowCall,
 	} = useContext(QuizContext);
 	const [selectedOption, setSelectedOption] = useState<number | null>(null);
 	const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
+	const [useddCall, setusedCall] = useState(false)
 
 	const handleOptionClick = (id: number) => {
 		setSelectedOption(id);
 		if (id === 1) {
 			if (questionChecked === 10) {
+				setShowCall(false);
 				setIsCorrect(true);
 				setShowResult(true);
 
@@ -61,6 +65,7 @@ const Quiz: React.FC = () => {
 				});
 			} else {
 				setIsCorrect(true);
+				setShowCall(false);
 				toast.success('Correct, Move to the Next Question', {
 					position: 'top-right',
 					autoClose: 5000,
@@ -90,7 +95,7 @@ const Quiz: React.FC = () => {
 				transition: Bounce,
 			});
 
-			if (attempt === 0) {
+			if (attempt === 1) {
 				toast.error(`You have ${attempt} attempts`, {
 					position: 'top-right',
 					autoClose: 5000,
@@ -109,7 +114,7 @@ const Quiz: React.FC = () => {
 				setShowResult(true);
 			}
 
-			if (attempt === 0 && questionChecked === 0) {
+			if (attempt === 1 && questionChecked === 0) {
 				toast.error(`You have ${attempt} attempts`, {
 					position: 'top-right',
 					autoClose: 5000,
@@ -122,8 +127,9 @@ const Quiz: React.FC = () => {
 					transition: Bounce,
 				});
 
+				setShowCall(false);
 				setQuestionChecked(0);
-				let finalScore = questionChecked * 5;
+				let finalScore = 0 * 5;
 				setTotalScore(finalScore);
 				setShowResult(true);
 			}
@@ -140,6 +146,12 @@ const Quiz: React.FC = () => {
 
 		console.log(questionChecked);
 	};
+
+	const showCallHandler = () => {
+		setShowCall(true)
+
+		setusedCall(true)
+	}
 
 	return (
 		<div className=' relative'>
@@ -158,6 +170,8 @@ const Quiz: React.FC = () => {
 					theme='light'
 					transition={Bounce}
 				/>
+
+				{showCall && <AlumusModal />}
 				<div className=' absolute left-5 top-4'>
 					<img src={Logo} alt='Logo' />
 				</div>
@@ -169,9 +183,18 @@ const Quiz: React.FC = () => {
 				</div>
 
 				<div className=' absolute right-5 top-20 flex gap-5'>
-					<img className='w-12 h-12' src={Call} alt='Call' />
-					<img className='w-12 h-12' src={Chance} alt='Chance' />
-					<img className='w-12 h-12' src={Shield} alt='Shield' />
+					<div onClick={showCallHandler}>
+					<img
+						
+						className='w-12 h-12'
+						src={ useddCall ? UsedCall : Call}
+						alt='Call'
+					/>
+				</div>
+					<div className='w-12 h-12 text-white font-bold flex items-center justify-center main-container rounded-full bg'>
+						{attempt}
+					</div>
+					{/* <img className='w-12 h-12' src={Shield} alt="" /> */}
 				</div>
 				<div className=' relative px-12 py-12 md:w-[90%] lg:w-[60%] h-[80dvh]  flex flex-col items-center justify-center'>
 					<div className='qa-container border-purple-500 px-5 py-6'>
@@ -208,7 +231,7 @@ const Quiz: React.FC = () => {
 						{questionNo} out of 10 questions
 					</div>
 					<button
-						className=' main-container text-white px-11ad py-3 rounded-2xl'
+						className=' main-container text-white px-11 py-3 rounded-2xl'
 						onClick={nextQuestionHandler}>
 						Next Question
 					</button>
