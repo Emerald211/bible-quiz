@@ -1,4 +1,10 @@
-import { useState,useEffect, createContext, Dispatch, SetStateAction } from 'react';
+import {
+	useState,
+	useEffect,
+	createContext,
+	Dispatch,
+	SetStateAction,
+} from 'react';
 import axios from 'axios';
 
 type QuizContextType = {
@@ -217,7 +223,10 @@ const QuizProvider: React.FC<{ children: React.ReactNode }> = ({
 			});
 	};
 
-	const countDownTimer = (extraMinutes: number = 0, extraSeconds: number = 0) => {
+	const countDownTimer = (
+		extraMinutes: number = 0,
+		extraSeconds: number = 0
+	) => {
 		if (timerInterval) {
 			clearInterval(timerInterval);
 		}
@@ -237,8 +246,12 @@ const QuizProvider: React.FC<{ children: React.ReactNode }> = ({
 
 				setMinuteDisplay(minutesDisplay);
 				setSecondDisplay(secondsDisplay);
-
-				if (totalSeconds === 0) {
+				if (totalSeconds === 0 && attempt === 3) {
+					clearInterval(intervalId);
+					let Score = 0 * 5;
+					setTotalScore(Score);
+					setShowResult(true);
+				} else if (totalSeconds === 0) {
 					clearInterval(intervalId);
 					let Score = questionChecked * 5;
 					setTotalScore(Score);
