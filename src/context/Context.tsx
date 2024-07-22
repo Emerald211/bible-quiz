@@ -1,4 +1,4 @@
-import { useState, createContext, Dispatch, SetStateAction } from 'react';
+import { useState,useEffect, createContext, Dispatch, SetStateAction } from 'react';
 import axios from 'axios';
 
 type QuizContextType = {
@@ -23,6 +23,7 @@ type QuizContextType = {
 	setShowResult: Dispatch<SetStateAction<boolean>>;
 	showCall: boolean;
 	setShowCall: Dispatch<SetStateAction<boolean>>;
+	countDownTimer: (extraMinutes?: number, extraSeconds?: number) => void;
 };
 
 type Option = {
@@ -52,9 +53,10 @@ const QuizContext = createContext<QuizContextType>({
 	setQuestionChecked: () => {},
 	setAttempt: () => {},
 	showResult: false,
-	setShowResult: () => { },
+	setShowResult: () => {},
 	showCall: false,
-	setShowCall: () => {}
+	setShowCall: () => {},
+	countDownTimer: () => {},
 });
 
 const QuizProvider: React.FC<{ children: React.ReactNode }> = ({
@@ -63,7 +65,7 @@ const QuizProvider: React.FC<{ children: React.ReactNode }> = ({
 	const [verse, setVerse] = useState('');
 	const [minuteDisplay, setMinuteDisplay] = useState('00');
 	const [secondDisplay, setSecondDisplay] = useState('00');
-	const [timerInterval, setTimerInterval] = useState(0);
+	const [timerInterval, setTimerInterval] = useState<number | null>(null);
 	const [loading, setLoading] = useState(false);
 	const [result, setResult] = useState<any[]>([]);
 	const [options, setOptions] = useState<never[]>([]);
@@ -215,8 +217,12 @@ const QuizProvider: React.FC<{ children: React.ReactNode }> = ({
 			});
 	};
 
-	const countDownTimer = () => {
-		let totalSeconds = 60;
+	const countDownTimer = (extraMinutes: number = 0, extraSeconds: number = 0) => {
+		if (timerInterval) {
+			clearInterval(timerInterval);
+		}
+
+		let totalSeconds = 60 + extraMinutes * 60 + extraSeconds;
 		setMinuteDisplay('01');
 		setSecondDisplay('00');
 
@@ -232,7 +238,8 @@ const QuizProvider: React.FC<{ children: React.ReactNode }> = ({
 				setMinuteDisplay(minutesDisplay);
 				setSecondDisplay(secondsDisplay);
 
-				if (seconds === 1) {
+				if (totalSeconds === 0) {
+					clearInterval(intervalId);
 					let Score = questionChecked * 5;
 					setTotalScore(Score);
 					setShowResult(true);
@@ -243,6 +250,14 @@ const QuizProvider: React.FC<{ children: React.ReactNode }> = ({
 		}, 1000);
 		setTimerInterval(intervalId);
 	};
+
+	useEffect(() => {
+		return () => {
+			if (timerInterval) {
+				clearInterval(timerInterval);
+			}
+		};
+	}, [timerInterval]);
 
 	const contextValue: QuizContextType = {
 		verse,
@@ -265,7 +280,8 @@ const QuizProvider: React.FC<{ children: React.ReactNode }> = ({
 		showResult,
 		setShowResult,
 		showCall,
-		setShowCall
+		setShowCall,
+		countDownTimer,
 	};
 
 	return (

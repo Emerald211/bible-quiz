@@ -5,7 +5,7 @@ import Evict from '../../assets/images/Stamp.png';
 import { useNavigate } from 'react-router-dom';
 
 export const Scoreboard = () => {
-	const { user, totalScore, questionChecked, setUser, setQuestionChecked, setQuestionNo, setTotalScore, setAttempt, setShowResult } = useContext(QuizContext);
+	const { user, totalScore, questionChecked, setUser, setQuestionChecked, setQuestionNo, setTotalScore, setAttempt, setShowResult, setShowCall } = useContext(QuizContext);
 
 	const navigate = useNavigate()
 
@@ -16,8 +16,9 @@ export const Scoreboard = () => {
 		setQuestionChecked(0)
 		setQuestionNo(1)
 		setTotalScore(0)
-		setAttempt(2)
+		setAttempt(3)
 		setShowResult(false)
+		setShowCall(false)
 
 
 		

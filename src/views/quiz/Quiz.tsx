@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react';
 import './quiz.css';
 import Call from '../../assets/images/Group 17.png';
-import UsedCall from '../../assets/images/Group 22676.png'
+import UsedCall from '../../assets/images/Group 22676.png';
 import Logo from '../../assets/images/Approved logo watchtower black 2.png';
 import { QuizContext } from '../../context/Context';
 import { Scoreboard } from '../scoreboard/scoreboard';
@@ -34,10 +34,11 @@ const Quiz: React.FC = () => {
 		setShowResult,
 		showCall,
 		setShowCall,
+		countDownTimer
 	} = useContext(QuizContext);
 	const [selectedOption, setSelectedOption] = useState<number | null>(null);
 	const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
-	const [useddCall, setusedCall] = useState(false)
+	const [useddCall, setusedCall] = useState(false);
 
 	const handleOptionClick = (id: number) => {
 		setSelectedOption(id);
@@ -148,10 +149,14 @@ const Quiz: React.FC = () => {
 	};
 
 	const showCallHandler = () => {
-		setShowCall(true)
+		setShowCall(true);
 
-		setusedCall(true)
-	}
+		setusedCall(true);
+		countDownTimer(1,0)
+
+		console.log("yyy");
+		
+	};
 
 	return (
 		<div className=' relative'>
@@ -172,7 +177,7 @@ const Quiz: React.FC = () => {
 				/>
 
 				{showCall && <AlumusModal />}
-				<div className=' absolute left-5 top-4'>
+				<div className=' absolute z-30 left-5 top-4'>
 					<img src={Logo} alt='Logo' />
 				</div>
 				<div className='absolute right-7 top-4'>
@@ -182,15 +187,15 @@ const Quiz: React.FC = () => {
 					</div>
 				</div>
 
-				<div className=' absolute right-5 top-20 flex gap-5'>
-					<div onClick={showCallHandler}>
-					<img
-						
-						className='w-12 h-12'
-						src={ useddCall ? UsedCall : Call}
-						alt='Call'
-					/>
-				</div>
+				<div className=' absolute z-30 right-5 top-20 flex gap-5'>
+					<div>
+						<img
+							onClick={showCallHandler}
+							className='w-12 h-12'
+							src={useddCall ? UsedCall : Call}
+							alt='Call'
+						/>
+					</div>
 					<div className='w-12 h-12 text-white font-bold flex items-center justify-center main-container rounded-full bg'>
 						{attempt}
 					</div>
