@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import './quiz.css';
 import Call from '../../assets/images/Group 17.png';
 import UsedCall from '../../assets/images/Group 22676.png';
@@ -34,24 +34,28 @@ const Quiz: React.FC = () => {
 		setShowResult,
 		showCall,
 		setShowCall,
-		countDownTimer
+		countDownTimer,
 	} = useContext(QuizContext);
 	const [selectedOption, setSelectedOption] = useState<number | null>(null);
 	const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
 	const [useddCall, setusedCall] = useState(false);
 
+	useEffect(() => {
+		console.log(questionChecked);
+	}, []);
+
 	const handleOptionClick = (id: number) => {
 		setSelectedOption(id);
 		if (id === 1) {
+			setIsCorrect(true);
+			setShowCall(false);
 			if (questionChecked === 10) {
-				setShowCall(false);
-				setIsCorrect(true);
-				setShowResult(true);
-
 				setQuestionChecked(questionChecked + 1);
 
 				let score = questionChecked * 5;
 				setTotalScore(score);
+				setIsCorrect(true);
+				setShowResult(true);
 
 				toast.success('Correct, 10/10', {
 					position: 'top-right',
@@ -65,8 +69,7 @@ const Quiz: React.FC = () => {
 					transition: Bounce,
 				});
 			} else {
-				setIsCorrect(true);
-				setShowCall(false);
+				setQuestionChecked(questionChecked + 1);
 				toast.success('Correct, Move to the Next Question', {
 					position: 'top-right',
 					autoClose: 5000,
@@ -84,7 +87,7 @@ const Quiz: React.FC = () => {
 
 			setAttempt(attempt - 1);
 
-			toast.error(`You have ${attempt} more attempt`, {
+			toast.error(`You have ${attempt - 1} more attempt`, {
 				position: 'top-right',
 				autoClose: 5000,
 				hideProgressBar: false,
@@ -97,7 +100,7 @@ const Quiz: React.FC = () => {
 			});
 
 			if (attempt === 1) {
-				toast.error(`You have ${attempt} attempts`, {
+				toast.error(`You have ${attempt - 1} attempts`, {
 					position: 'top-right',
 					autoClose: 5000,
 					hideProgressBar: false,
@@ -109,7 +112,7 @@ const Quiz: React.FC = () => {
 					transition: Bounce,
 				});
 
-				setQuestionChecked(0);
+				setQuestionChecked(questionChecked);
 				let finalScore = questionChecked * 5;
 				setTotalScore(finalScore);
 				setShowResult(true);
@@ -129,8 +132,8 @@ const Quiz: React.FC = () => {
 				});
 
 				setShowCall(false);
-				setQuestionChecked(0);
-				let finalScore = 0 * 5;
+				setQuestionChecked(questionChecked);
+				let finalScore = questionChecked * 5;
 				setTotalScore(finalScore);
 				setShowResult(true);
 			}
@@ -140,10 +143,8 @@ const Quiz: React.FC = () => {
 	const nextQuestionHandler = () => {
 		setIsCorrect(null);
 		setSelectedOption(null);
-		getRandomVerse();
-		setQuestionChecked(questionChecked + 1);
-
 		setQuestionNo(questionNo + 1);
+		getRandomVerse();
 
 		console.log(questionChecked);
 	};
@@ -152,10 +153,9 @@ const Quiz: React.FC = () => {
 		setShowCall(true);
 
 		setusedCall(true);
-		countDownTimer(1,0)
+		countDownTimer(1, 0);
 
-		console.log("yyy");
-		
+		console.log('yyy');
 	};
 
 	return (

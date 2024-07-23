@@ -52,7 +52,7 @@ const QuizContext = createContext<QuizContextType>({
 	setQuestionNo: () => {},
 	setTotalScore: () => {},
 	questionNo: 1,
-	questionChecked: 1,
+	questionChecked: 0,
 	totalScore: 0,
 	attempt: 3,
 	setUser: () => {},
@@ -76,7 +76,7 @@ const QuizProvider: React.FC<{ children: React.ReactNode }> = ({
 	const [result, setResult] = useState<any[]>([]);
 	const [options, setOptions] = useState<never[]>([]);
 	const [user, setUser] = useState('');
-	const [questionChecked, setQuestionChecked] = useState(1);
+	const [questionChecked, setQuestionChecked] = useState(0);
 	const [questionNo, setQuestionNo] = useState(1);
 	const [totalScore, setTotalScore] = useState(0);
 	const [attempt, setAttempt] = useState(3);
@@ -246,7 +246,7 @@ const QuizProvider: React.FC<{ children: React.ReactNode }> = ({
 
 				setMinuteDisplay(minutesDisplay);
 				setSecondDisplay(secondsDisplay);
-				if (totalSeconds === 0 && attempt === 3) {
+				if (totalSeconds === 0 && attempt === 3 && questionChecked === 0) {
 					clearInterval(intervalId);
 					let Score = 0 * 5;
 					setTotalScore(Score);
