@@ -49,10 +49,11 @@ const Quiz: React.FC = () => {
 		if (id === 1) {
 			setIsCorrect(true);
 			setShowCall(false);
-			if (questionChecked === 10) {
-				setQuestionChecked(questionChecked + 1);
+			setQuestionChecked(questionChecked + 1);
+			if (questionChecked + 1 === 10) {
+				
 
-				let score = questionChecked * 5;
+				let score = (questionChecked + 1) * 5;
 				setTotalScore(score);
 				setIsCorrect(true);
 				setShowResult(true);
