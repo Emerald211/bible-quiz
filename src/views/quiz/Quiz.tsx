@@ -179,9 +179,9 @@ const Quiz = () => {
 				</div>
 				<div className='relative px-12 py-12 md:w-[90%] lg:w-[60%] h-[80dvh] flex flex-col items-center justify-center'>
 					<div className='qa-container border-purple-500 px-5 py-6'>
-						<h1
+						{verse ? <h1
 							dangerouslySetInnerHTML={{ __html: verse }}
-							className='font-serrat text-white text-sm md:text-xl text-center font-bold'></h1>
+							className='font-serrat text-white text-sm md:text-xl text-center font-bold'></h1>: <h1 className=' font-bold text-white'>Loading...</h1>}
 					</div>
 
 					<div className='md:mt-14 mt-4 grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-12'>
