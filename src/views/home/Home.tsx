@@ -1,17 +1,21 @@
 import { useNavigate } from 'react-router-dom';
 import Logo from '../../assets/images/Approved logo watchtower black 2.png';
-import { useForm } from 'react-hook-form';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import { useContext } from 'react';
 import { QuizContext } from '../../context/Context';
+
+interface FormValues {
+	tribe: string;
+}
 
 const Home = () => {
 	const navigate = useNavigate();
 
 	const { getRandomVerse, setUser } = useContext(QuizContext);
 
-	const { register, handleSubmit } = useForm();
+	const { register, handleSubmit } = useForm<FormValues>();
 
-	const onSubmitForm = (data: { tribe: string }) => {
+	const onSubmitForm: SubmitHandler<FormValues> = (data) => {
 		const { tribe } = data;
 
 		console.log(tribe);
@@ -20,7 +24,7 @@ const Home = () => {
 
 		getRandomVerse();
 
-		setUser(tribe)
+		setUser(tribe);
 	};
 
 	return (
