@@ -76,6 +76,7 @@ const Quiz = () => {
 					theme: 'colored',
 					transition: Bounce,
 				});
+				stopTimer();
 				setMinuteDisplay('00');
 				setSecondDisplay('00');
 			}
