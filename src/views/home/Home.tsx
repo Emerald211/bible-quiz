@@ -30,7 +30,7 @@ const Home = () => {
 				ScripturePedia
 			</h1>
 			<h3 className=' mt-3 text-lg italic font-bold text-white'>
-				Lets dive into the scripture together
+				Lets dive into the Scripture together
 			</h3>
 
 			<form
