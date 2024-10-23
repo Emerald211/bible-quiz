@@ -50,7 +50,7 @@ const QuizContext = createContext<QuizContextType>({
 	user: '',
 	timerRunning: false,
 	questionNo: 1,
-	questionChecked: 1,
+	questionChecked: 0,
 	totalScore: 0,
 	attempt: 2,
 	startTimer: () => {},
@@ -80,7 +80,7 @@ const QuizProvider = ({ children }: QuizProviderProps) => {
 	const [result, setResult] = useState<any[]>([]);
 	const [options, setOptions] = useState<OptionType[]>([]);
 	const [user, setUser] = useState<string>('');
-	const [questionChecked, setQuestionChecked] = useState<number>(1);
+	const [questionChecked, setQuestionChecked] = useState<number>(0);
 	const [questionNo, setQuestionNo] = useState<number>(1);
 	const [totalScore, setTotalScore] = useState<number>(0);
 	const [attempt, setAttempt] = useState<number>(2);
@@ -94,6 +94,8 @@ const QuizProvider = ({ children }: QuizProviderProps) => {
 			.get('https://labs.bible.org/api/?passage=random&type=json')
 			.then((response) => {
 				const result = response.data;
+				console.log(result);
+				
 				setResult(result);
 				setVerse(
 					`<strong>${result[0].verse.substring(2)}</strong> ${result[0].text}`
@@ -130,7 +132,7 @@ const QuizProvider = ({ children }: QuizProviderProps) => {
 
 				if (totalSeconds === 0) {
 					stopTimer();
-					let score = questionChecked * 5;
+					let score = questionChecked * 10;
 					setTotalScore(score);
 					setShowResult(true);
 				}
