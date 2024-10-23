@@ -27,7 +27,7 @@ const Home = () => {
 		<div className=' bg-main  flex flex-col justify-center items-center font-serrat  bg-cover w-screen h-screen'>
 			<img src={Logo} alt='' />
 			<h1 className=' main-text font-serrat text-5xl font-bold'>
-				WatchtowerPedia
+				ScripturePedia
 			</h1>
 			<h3 className=' mt-3 text-lg italic font-bold text-white'>
 				Lets dive into the scripture together
