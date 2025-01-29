@@ -29,7 +29,7 @@ const Home = () => {
 	};
 
 	return (
-		<div className=' bg-main  flex flex-col justify-center items-center font-serrat  bg-cover w-screen h-screen'>
+		<div className=' bg-img  flex flex-col justify-center items-center font-serrat  bg-cover w-screen h-screen'>
 			<div className=' flex items-center'>
 				<img src={Hilltop} className='w-36 h-36' />
 				<img src={Logo} alt='' />
@@ -48,7 +48,7 @@ const Home = () => {
 				<input
 					{...register('tribe')}
 					required
-					className=' qa-container w-[265px] md:w-[350px] rounded px-6 py-3 text-white font-bold'
+					className=' qa-container w-[265px] md:w-[350px] rounded px-6 py-3 text-black font-bold'
 					placeholder='Input Your Tribe Name'
 					type='text'
 				/>

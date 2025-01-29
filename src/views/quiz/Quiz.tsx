@@ -133,7 +133,7 @@ const Quiz = () => {
 
 	return (
 		<div className='relative'>
-			<div className='relative bg-main w-screen h-screen font-serrat flex flex-col justify-center items-center'>
+			<div className='relative bg-img w-screen h-screen font-serrat flex flex-col justify-center items-center'>
 				{showResult && <Scoreboard />}
 				<ToastContainer
 					position='top-right'
