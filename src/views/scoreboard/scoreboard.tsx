@@ -23,19 +23,19 @@ export const Scoreboard = () => {
 		
 	}
 	return (
-		<div className=' score-card z-40 gap-4 flex flex-col justify-center justify-center items-center w-screen h-screen absolute  font-serrat text-white'>
+		<div className=' score-card z-40 gap-4 flex flex-col justify-center  items-center w-screen h-screen absolute  font-serrat text-white'>
 			{questionChecked < 4 ? (
 				<div className=' flex flex-col items-center justify-center'>
 					<img src={Evict} />
-					<h1 className=' text-white text-xl'>Oops...{user}</h1>
+					<h1 className=' text-main text-xl font-bold'>Oops...{user}</h1>
 				</div>
 			) : (
-				<h1 className=' text-white text-xl'>Congratulations {user}</h1>
+				<h1 className=' text-main text-xl font-bold'>Congratulations {user}</h1>
 			)}
 
-			<h1 className=' font-bold text-4xl'>You have {totalScore} Points</h1>
+			<h1 className=' font-bold text-4xl text-main'>You have {totalScore} Points</h1>
 
-			<button onClick={handleSubmit}  className=' w-[265px] main-container px-6 py-4 rounded-2xl text-white text-center font-bold'>
+			<button onClick={handleSubmit}  className=' w-[265px] main-container px-6 py-4 rounded-xl text-white text-center font-bold'>
 				Next Tribe
 			</button>
 			<h1></h1>

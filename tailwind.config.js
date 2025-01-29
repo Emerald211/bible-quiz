@@ -10,13 +10,14 @@ export default {
         serrat: 'Montserrat'
       },
       backgroundImage: {
-        main: "url('/src/assets/images/Group 22670.png')"
+        main: "url('/src/assets/images/white-simple-textured-design-background.jpg')"
       },
       backgroundColor: {
        core: 'rgb(223,8,255)'
       },
       colors: {
-        core: 'rgb(223,8,255)'
+        core: 'rgb(223,8,255)',
+        main: 'rgb(223,8,255)'
       }
     },
   },
