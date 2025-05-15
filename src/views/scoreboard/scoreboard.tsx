@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { QuizContext } from '../../context/Context';
+import QuizContext from '../../context/QuizContext';
 import './scoreboard.css';
 import Evict from '../../assets/images/Stamp.png';
 import { useNavigate } from 'react-router-dom';
@@ -27,13 +27,13 @@ export const Scoreboard = () => {
 			{questionChecked < 4 ? (
 				<div className=' flex flex-col items-center justify-center'>
 					<img src={Evict} />
-					<h1 className=' text-main text-xl font-bold'>Oops...{user}</h1>
+					<h1 className=' text-black text-xl font-bold'>Oops...{user}</h1>
 				</div>
 			) : (
-				<h1 className=' text-main text-xl font-bold'>Congratulations {user}</h1>
+				<h1 className=' text-black text-xl font-bold'>Congratulations {user}</h1>
 			)}
 
-			<h1 className=' font-bold text-4xl text-main'>You have {totalScore} Points</h1>
+			<h1 className=' font-extrabold text-4xl text-black'>You have {totalScore} Points</h1>
 
 			<button onClick={handleSubmit}  className=' w-[265px] main-container px-6 py-4 rounded-xl text-white text-center font-bold'>
 				Next Tribe
