@@ -251,11 +251,14 @@ const Quiz = () => {
 							return (
 								<div
 									onClick={() => handleOptionClick(eachItem.id)}
-									className={`flex w-[265px] items-center justify-center text-sm md:text-lg text-center text-black border gap-1 border-main md:px-4 lg:px-8 py-3 rounded-r-xl hover:bg-core hover:text-white font-bold ${bgColor}`}
-									key={eachItem.id}>
-									<span>{eachItem.bookname} </span>
-									<span>{eachItem.chapter} :</span>
-									<span>{eachItem.verse}</span>
+									key={eachItem.id}
+									className={`flex w-[265px] items-center justify-between text-sm md:text-lg text-black border border-main px-4 py-3 rounded-xl hover:bg-core hover:text-white font-bold ${bgColor} cursor-pointer`}>
+									<span className='truncate max-w-[70%]'>
+										{eachItem.bookname}
+									</span>
+									<span>
+										{eachItem.chapter} : {eachItem.verse}
+									</span>
 								</div>
 							);
 						})}
