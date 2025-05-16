@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import Logo from '../../assets/images/Approved logo watchtower black 2.png';
 import Hilltop from '../../assets/images/Hilltop-removebg-preview.png';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import { useContext } from 'react';
 import QuizContext from '../../context/QuizContext';
 
@@ -14,7 +14,11 @@ const Home = () => {
 
 	const { getRandomVerse, setUser } = useContext(QuizContext);
 
-	const { register, handleSubmit } = useForm<FormValues>();
+	const {
+		handleSubmit,
+		control,
+		formState: { errors },
+	} = useForm<FormValues>();
 
 	const onSubmitForm: SubmitHandler<FormValues> = (data) => {
 		const { tribe } = data;
@@ -44,19 +48,31 @@ const Home = () => {
 
 			<form
 				onSubmit={handleSubmit(onSubmitForm)}
-				className=' flex flex-col mt-4 items-center'
-				action=''>
-				<select
-					{...register('tribe')}
-					required
-					className=' qa-container w-[265px] md:w-[350px] rounded px-6 py-3 text-black font-bold'>
-					<option>Select Tribe</option>
-					<option value='Royal PriestHood'>Royal PriestHood</option>
-					<option value='Engravers'>Engravers</option>
-					<option value='Sword Bearers'>Sword Bearers</option>
-					<option value='Truth Ambassadors'>Truth Ambassadors</option>
-				</select>
-
+				className=' flex flex-col mt-4 items-center'>
+				<div>
+					<Controller
+						name='tribe'
+						control={control}
+						rules={{
+							required: 'You must selct a tribe',
+						}}
+						render={({ field: { value, onChange } }) => (
+							<select
+								value={value}
+								onChange={onChange}
+								className=' qa-container w-[265px] md:w-[350px] rounded px-6 py-3 text-black font-bold'>
+								<option>Select Tribe</option>
+								<option value='Royal PriestHood'>Royal PriestHood</option>
+								<option value='Engravers'>Engravers</option>
+								<option value='Sword Bearers'>Sword Bearers</option>
+								<option value='Truth Ambassadors'>Truth Ambassadors</option>
+							</select>
+						)}
+					/>
+					{errors.tribe && (
+						<p className='text-red-700 text-xs'>{errors.tribe.message}</p>
+					)}
+				</div>
 				<button
 					type='submit'
 					className=' mt-3 hover:bg-core border w-[265px] main-container border-core px-16 py-3 text-white rounded'>

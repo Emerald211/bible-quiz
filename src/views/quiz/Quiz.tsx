@@ -166,7 +166,7 @@ const Quiz = () => {
 							<h2 className='text-xl font-bold text-main mb-2'>Level Up!</h2>
 							<p className='text-gray-700 mb-4'>
 								You've reached{' '}
-								<strong>{currentDifficulty.toUpperCase()}</strong> difficulty!
+								<strong>{currentDifficulty.toUpperCase()}</strong> level!
 							</p>
 							<button
 								onClick={() => {
