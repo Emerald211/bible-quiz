@@ -39,6 +39,8 @@ const Quiz = () => {
 		startTimer,
 		resetTimer,
 		currentDifficulty,
+		showDifficultyModal,
+		setShowDifficultyModal
 	} = useContext(QuizContext);
 
 	const [selectedOption, setSelectedOption] = useState<string | null>(null);
@@ -79,7 +81,7 @@ const Quiz = () => {
 				setIsCorrect(true);
 				setShowResult(true);
 				setQuestionChecked(questionChecked + 1);
-				let score = (questionChecked + 1) * 10;
+				let score = (questionChecked + 1) * 6.67;
 				setTotalScore(score);
 
 				toast.success('Correct, 15/15', {
@@ -130,12 +132,12 @@ const Quiz = () => {
 
 			if (attempt === 0 && questionChecked === 0) {
 				setQuestionChecked(0);
-				let finalScore = questionChecked * 10;
-				setTotalScore(finalScore);
+				let finalScore = questionChecked * 6.67;
+				setTotalScore(Math.round(finalScore));
 				setShowResult(true);
 			} else if (attempt === 0) {
-				let finalScore = questionChecked * 10;
-				setTotalScore(finalScore);
+				let finalScore = questionChecked * 6.67;
+				setTotalScore(Math.round(finalScore));
 				setShowResult(true);
 			}
 		}
@@ -157,6 +159,26 @@ const Quiz = () => {
 			<div className='relative bg-img w-screen h-screen font-serrat flex flex-col justify-center items-center'>
 				{showResult && <Scoreboard />}
 				<ToastContainer />
+
+				{showDifficultyModal && (
+					<div className='fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center'>
+						<div className='bg-white rounded-lg p-6 max-w-sm text-center shadow-lg'>
+							<h2 className='text-xl font-bold text-main mb-2'>Level Up!</h2>
+							<p className='text-gray-700 mb-4'>
+								You've reached{' '}
+								<strong>{currentDifficulty.toUpperCase()}</strong> difficulty!
+							</p>
+							<button
+								onClick={() => {
+									setShowDifficultyModal(false)
+									nextQuestionHandler()
+								 }}
+								className='bg-main text-white py-2 px-5 rounded hover:bg-core transition'>
+								Continue
+							</button>
+						</div>
+					</div>
+				)}
 
 				<div className='absolute flex left-5 top-4'>
 					<img src={Logo} alt='Logo' />

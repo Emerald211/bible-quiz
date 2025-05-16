@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import useTimer from './useTimerHook';
 import { OptionType, QuizContextType } from '../types';
@@ -16,7 +16,12 @@ const useQuizLogic = (): QuizContextType => {
   const [totalScore, setTotalScore] = useState(0);
   const [attempt, setAttempt] = useState(2);
   const [showResult, setShowResult] = useState(false);
+
   const [currentDifficulty, setCurrentDifficulty] = useState<Difficulty>('basic');
+  const [showDifficultyModal, setShowDifficultyModal] = useState(false);
+
+  // 🔁 Track previous difficulty level to detect transitions
+  const prevDifficultyRef = useRef<Difficulty>('basic');
 
   const {
     minuteDisplay,
@@ -28,7 +33,7 @@ const useQuizLogic = (): QuizContextType => {
     setMinuteDisplay,
     setSecondDisplay,
   } = useTimer(() => {
-    setTotalScore(questionChecked * 10);
+    setTotalScore(Math.round(questionChecked * 6.67));
     setShowResult(true);
   });
 
@@ -38,9 +43,18 @@ const useQuizLogic = (): QuizContextType => {
     return 'basic';
   };
 
+  // 🔄 Watch for difficulty changes and trigger modal
+  useEffect(() => {
+    const newDifficulty = getDifficultyLevel();
+    if (newDifficulty !== prevDifficultyRef.current) {
+      setCurrentDifficulty(newDifficulty);
+      setShowDifficultyModal(true); // ✅ Trigger modal
+      prevDifficultyRef.current = newDifficulty;
+    }
+  }, [questionChecked]);
+
   const getRandomVerse = () => {
     const difficulty = getDifficultyLevel();
-    setCurrentDifficulty(difficulty); // ✅ Track current difficulty
     setLoading(true);
 
     axios
@@ -170,7 +184,9 @@ const useQuizLogic = (): QuizContextType => {
     resetTimer,
     setMinuteDisplay,
     setSecondDisplay,
-    currentDifficulty, // ✅ Returned so UI can use it
+    currentDifficulty,
+    showDifficultyModal,      // ✅ return modal state
+    setShowDifficultyModal,   // ✅ allow UI to dismiss modal
   };
 };
 

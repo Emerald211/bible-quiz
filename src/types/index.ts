@@ -33,5 +33,7 @@ export interface OptionType {
     setShowResult: React.Dispatch<React.SetStateAction<boolean>>;
     setMinuteDisplay: React.Dispatch<React.SetStateAction<string>>;
     setSecondDisplay: React.Dispatch<React.SetStateAction<string>>;
+    showDifficultyModal: boolean;
+    setShowDifficultyModal: React.Dispatch<React.SetStateAction<boolean>>;
   }
   
