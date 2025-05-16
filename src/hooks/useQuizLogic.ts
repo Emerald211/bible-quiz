@@ -16,6 +16,7 @@ const useQuizLogic = (): QuizContextType => {
   const [totalScore, setTotalScore] = useState(0);
   const [attempt, setAttempt] = useState(2);
   const [showResult, setShowResult] = useState(false);
+ 
 
   const [currentDifficulty, setCurrentDifficulty] = useState<Difficulty>('basic');
   const [showDifficultyModal, setShowDifficultyModal] = useState(false);
@@ -65,14 +66,15 @@ const useQuizLogic = (): QuizContextType => {
         setVerse(`<strong>${result[0].verse.substring(2)}</strong> ${result[0].text}`);
         const shuffledOptions = shuffleArray(generateOptions(result, difficulty));
         setOptions(shuffledOptions);
-        setLoading(false);
         resetTimer();
         startTimer();
       })
       .catch((error) => {
         console.error('Error fetching verse', error);
+      })
+      .finally(() => {
         setLoading(false);
-      });
+    })
   };
 
   const shuffleArray = (array: any[]) => {

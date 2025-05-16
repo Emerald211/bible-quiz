@@ -31,6 +31,7 @@ const Quiz = () => {
 		attempt,
 		setAttempt,
 		setTotalScore,
+		loading,
 		showResult,
 		setShowResult,
 		setMinuteDisplay,
@@ -314,8 +315,10 @@ const Quiz = () => {
 					<button
 						className='main-container text-white px-12 py-3 rounded'
 						onClick={nextQuestionHandler}
-						disabled={selectedOption === null}>
-						Next Question
+						disabled={selectedOption === null 
+							|| loading
+						}>
+						{loading ? 'Loading...' : 'Next Question'}
 					</button>
 				</div>
 			</div>
