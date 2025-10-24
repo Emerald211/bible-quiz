@@ -1,11 +1,11 @@
-import { useState, useRef } from 'react';
+import { useState, useRef } from "react";
 
 const useTimer = (onTimeEnd: () => void, initialSeconds = 60) => {
-  const [minuteDisplay, setMinuteDisplay] = useState('01');
-  const [secondDisplay, setSecondDisplay] = useState('00');
+  const [minuteDisplay, setMinuteDisplay] = useState("01");
+  const [secondDisplay, setSecondDisplay] = useState("00");
   const [timerRunning, setTimerRunning] = useState(false);
   const intervalRef = useRef<number | null>(null);
-
+  const totalSecondsRef = useRef<number>(initialSeconds);
 
   const updateDisplay = (totalSeconds: number) => {
     const minutes = Math.floor(totalSeconds / 60);
@@ -16,14 +16,36 @@ const useTimer = (onTimeEnd: () => void, initialSeconds = 60) => {
 
   const startTimer = () => {
     let totalSeconds = initialSeconds;
+    totalSecondsRef.current = totalSeconds;
     updateDisplay(totalSeconds);
     setTimerRunning(true);
 
+    if (intervalRef.current !== null) clearInterval(intervalRef.current);
+
     intervalRef.current = setInterval(() => {
-      totalSeconds--;
-      if (totalSeconds >= 0) {
-        updateDisplay(totalSeconds);
-        if (totalSeconds === 0) {
+      totalSecondsRef.current--;
+      if (totalSecondsRef.current >= 0) {
+        updateDisplay(totalSecondsRef.current);
+        if (totalSecondsRef.current === 0) {
+          stopTimer();
+          onTimeEnd();
+        }
+      } else {
+        stopTimer();
+      }
+    }, 1000);
+  };
+
+  const resumeTimer = () => {
+    setTimerRunning(true);
+
+    if (intervalRef.current !== null) clearInterval(intervalRef.current);
+
+    intervalRef.current = setInterval(() => {
+      totalSecondsRef.current--;
+      if (totalSecondsRef.current >= 0) {
+        updateDisplay(totalSecondsRef.current);
+        if (totalSecondsRef.current === 0) {
           stopTimer();
           onTimeEnd();
         }
@@ -42,6 +64,7 @@ const useTimer = (onTimeEnd: () => void, initialSeconds = 60) => {
 
   const resetTimer = () => {
     if (intervalRef.current !== null) clearInterval(intervalRef.current);
+    totalSecondsRef.current = initialSeconds;
     updateDisplay(initialSeconds);
     setTimerRunning(false);
   };
@@ -53,6 +76,7 @@ const useTimer = (onTimeEnd: () => void, initialSeconds = 60) => {
     startTimer,
     stopTimer,
     resetTimer,
+    resumeTimer,
     setMinuteDisplay,
     setSecondDisplay,
   };
