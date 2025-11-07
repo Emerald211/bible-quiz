@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 interface UseOptionSelectionProps {
   correctOptionId: string;
@@ -36,6 +37,10 @@ export function useOptionSelection({
     if (id === correctOptionId) {
       setIsCorrect(true);
       setWrongAttempt(false);
+      toast.success("Correct answer! Great job!", {
+        position: "top-center",
+        autoClose: 3000,
+      });
 
       // Do NOT decrement attempt for correct answer
 
@@ -50,6 +55,10 @@ export function useOptionSelection({
     } else {
       setIsCorrect(false);
       setWrongAttempt(true);
+      toast.error("Incorrect answer. Try again!", {
+        position: "top-center",
+        autoClose: 3000,
+      });
 
       // Decrement attempt for wrong answer and check if attempts are now zero
       setAttempt((prev) => {

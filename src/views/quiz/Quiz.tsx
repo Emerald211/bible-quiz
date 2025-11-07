@@ -33,8 +33,6 @@ const Quiz = () => {
     loading,
     showResult,
     setShowResult,
-    setMinuteDisplay,
-    setSecondDisplay,
     stopTimer,
     startTimer,
     resetTimer,
@@ -135,6 +133,7 @@ const Quiz = () => {
             handleFiftyFifty={handleFiftyFifty}
             resetTimer={resetTimer}
             startTimer={startTimer}
+            trialsLeft={attempt}
           />
 
           <div className="mt-3 text-center">
