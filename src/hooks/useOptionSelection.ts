@@ -8,7 +8,7 @@ interface UseOptionSelectionProps {
   setTotalScore: (val: number) => void;
   setShowResult: (val: boolean) => void;
   attempt: number;
-  setAttempt: (val: number) => void;
+  setAttempt: React.Dispatch<React.SetStateAction<number>>;
   stopTimer: () => void;
   maxQuestions?: number; // default: 15
   scorePerQuestion?: number; // default: 6.67
@@ -20,7 +20,6 @@ export function useOptionSelection({
   setQuestionChecked,
   setTotalScore,
   setShowResult,
-  attempt,
   setAttempt,
   stopTimer,
   maxQuestions = 15,
