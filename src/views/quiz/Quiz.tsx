@@ -1,14 +1,10 @@
 import { useContext, useState } from "react";
 import "./quiz.css";
-import Call from "../../assets/images/Group 17.png";
-import Chance from "../../assets/images/Group 18.png";
-import Shield from "../../assets/images/Group 21.png";
 import Logo from "../../assets/images/Approved logo watchtower black 2.png";
 import QuizContext from "../../context/QuizContext";
 import { Scoreboard } from "../scoreboard/scoreboard";
-import { Bounce, ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Loader from "../../components/loader/Loader";
 import LifelinePanel from "./LifelinePanel";
 import DifficultyModal from "./DifficultyModal";
 import TimerDisplay from "./TimerDisplay";

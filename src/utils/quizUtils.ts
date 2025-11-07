@@ -1,6 +1,8 @@
 import { OptionType } from "../types";
 import { shuffleArray } from "./helpers";
-import { BIBLE_BOOKS, BIBLE_BOOK_CATEGORIES } from "./constants";
+import { BIBLE_BOOK_CATEGORIES } from "./constants";
+
+type BibleBookCategory = keyof typeof BIBLE_BOOK_CATEGORIES;
 
 /**
  * Returns the category name for a given book.
@@ -24,9 +26,9 @@ export function generateOptions(
   difficulty: "basic" | "intermediate" | "advanced",
   testMode: boolean = false,
 ): OptionType[] {
-  const books = BIBLE_BOOKS;
   const correctOption = result[0];
-  const correctCategory = getBookCategory(correctOption.bookname);
+  const correctCategory = getBookCategory(correctOption.bookname) as BibleBookCategory | null;
+  // const correctCategory = getBookCategory(correctOption.bookname);
   const sameCategoryPool = (
     BIBLE_BOOK_CATEGORIES[correctCategory!] || []
   ).filter((book) => book !== correctOption.bookname);
@@ -61,17 +63,17 @@ export function generateOptions(
   }
 
   let sameCatCount = 0;
-  let diffCatCount = 0;
+  // let diffCatCount = 0;
 
   if (difficulty === "basic") {
     sameCatCount = 1;
-    diffCatCount = 2;
+    // diffCatCount = 2;
   } else if (difficulty === "intermediate") {
     sameCatCount = 2;
-    diffCatCount = 1;
+    // diffCatCount = 1;
   } else if (difficulty === "advanced") {
     sameCatCount = 3;
-    diffCatCount = 0;
+    // diffCatCount = 0;
   }
 
   // Try to add from same category

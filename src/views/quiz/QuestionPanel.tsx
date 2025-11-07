@@ -24,7 +24,6 @@ const QuestionPanel: React.FC<QuestionPanelProps> = ({
   selectedOption,
   isCorrect,
   fiftyUsedOptions,
-  loading,
   onOptionClick,
   wrongAttempt = false,
 }) => (
